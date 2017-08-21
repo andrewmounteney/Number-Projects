@@ -19,6 +19,14 @@
 <script>
 document.getElementById("submit").addEventListener("click", event => {
   event.preventDefault();
+  function condition(choice, i=null) {
+    switch (choice) {
+      case "highest":
+        return answer[answer.length - 1] <= num;
+      case "nth":
+        return i+1 <= num;
+    }
+  }
   const num = document.getElementById("nth").value;
   const choice = document.querySelector("input[type=radio]:checked").value;
   let answer = [];
@@ -30,19 +38,10 @@ document.getElementById("submit").addEventListener("click", event => {
     document.getElementById("ans").innerHTML = answer.join(", ");
   } else {
     answer = [1,1]
-    switch (choice) {
-      case "highest":
-        for (i = 2; answer[answer.length - 1] < num; i++) {
-          answer[i] = answer[i-1] + answer[i-2];
-        }
-        answer.pop();
-        break;
-      case "nth":
-        for (i = 2; i+1 <= num; i++) {
-          answer[i] = answer[i-1] + answer[i-2];
-        }
-        break;
+    for (i = 2; condition(choice, i); i++) {
+      answer[i] = answer[i-1] + answer[i-2];
     }
+    choice == "highest" ? answer.pop():null;
     document.getElementById("ans").innerHTML = answer.join(", ");
   }
   document.getElementById("nth").value = "";

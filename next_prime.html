@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="Find the Next Prime Number!">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Find the Next Prime Number!</title>
+</head>
+<body>
+  <h1>Find the Next Prime Number!</h1>
+  <button id="next">Next!</button>
+  <p id="ans"></p>
+</body>
+<script>
+let primes = [];
+document.getElementById("next").addEventListener("click", e => {
+  let length = primes.length;
+  if (length == 0) {
+    primes.push(2);
+  } else {
+    for (i = primes[length-1] + 1; primes.length == length; i++) {
+      if (primes.every(x => i % x != 0)) {primes.push(i)}
+    }
+  }
+  document.getElementById("ans").innerHTML = primes.join(", ")
+})
+</script>

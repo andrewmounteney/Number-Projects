@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="Find the cost of an area of tiles">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Find the cost of an area of tiles</title>
+</head>
+<body>
+  <h1>Find the cost of an area of tiles</h1>
+  <form>
+    <input type="number" id="height">Height</input>
+    <input type="number" id="width">Width</input>
+    <input type="number" id="cost">Cost per unit(in gbp)</input>
+    <input type="submit" value="Total Cost!" id="submit"></input>
+  </form>
+  <p id="ans"></p>
+</body>
+<script>
+document.getElementById("submit").addEventListener("click", e => {
+  e.preventDefault();
+  const height = document.getElementById("height").value;
+  const width = document.getElementById("width").value;
+  const cost = document.getElementById("cost").value;
+  let total;
+  if ((height * width) % 1 != 0 || height < 1 || width < 1 || cost < 0) {
+    alert("Please enter positive integers for height and width and a positive value for cost")
+  } else {
+    total = height * width * cost;
+    document.getElementById("ans").innerHTML = "£" + total.toFixed(2);
+  }
+})
+</script>

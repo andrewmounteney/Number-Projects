@@ -1,0 +1,37 @@
+<DOCTYPE! html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="Find the change from a payment">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Find the change from a payment</title>
+</head>
+<body>
+  <h1>Find change from a payment</h1>
+  <form>
+    <input type="number" id="cost">Cost of items(£)</input>
+    <input type="number" id="amount">Money given(£)</input>
+    <input type="submit" id="submit" value="Find change!"></input>
+  </form>
+  <p id="ans"></p>
+</body>
+<script>
+document.getElementById("submit").addEventListener("click", e => {
+  e.preventDefault();
+  const money = [20, 10, 5, 2, 1, 0.5, 0.2, 0.1, 0.05, 0.02, 0.01];
+  const cost = parseFloat(parseFloat(document.getElementById("cost").value).toFixed(2));
+  const amount = parseFloat(parseFloat(document.getElementById("amount").value).toFixed(2));
+  let change = amount - cost;
+  let ans = "";
+  if (cost > amount) {
+    alert("Please pay enough money for your items!")
+    console.log(typeof cost,typeof amount, change, cost > amount)
+  } else {
+  money.forEach(x => {
+    const num = Math.floor(change/x);
+    ans += num + " * £" + x + "<br>";
+    num == 0 ? null : change = change % x;
+  });
+  document.getElementById("ans").innerHTML = ans;
+}
+});
+</script>

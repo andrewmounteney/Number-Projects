@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="Calculate your mortgage costs!">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculate your mortgage costs!</title>
+</head>
+<body>
+  <h1>Calculate your mortgage costs!</h1>
+  <form>
+    <input type="number" id="amount">Mortgage amount(£)</input>
+    <input type="number" id="length">Mortgage Length(Years)</input>
+    <input type="number" id="interest">Interest rate</input>
+    <input type="submit" value="Calculate!" id="submit"></input>
+    <p id="ans"></p>
+  </form>
+</body>
+
+<script>
+document.getElementById("submit").addEventListener("click", e => {
+  e.preventDefault();
+
+  const amount = document.getElementById("amount").value;
+  const length = (document.getElementById("length").value * 12);
+  const interest = ((document.getElementById("interest").value/12)/100);
+  const totalPayments = length * 12;
+  let monthlyPayment;
+  if (interest == 0) {
+    monthlyPayment = (amount/length).toFixed(2);
+  } else if (interest < 0 || length <= 0 || amount <= 0) {
+    alert("Please input a positive interest rate, numbers of years and start amount");
+  } else {
+    monthlyPayment = ((interest*amount)/(1 - Math.pow((1+interest), (-length)))).toFixed(2);
+  }
+  document.getElementById("ans").innerHTML = "The Monthly payment will be £" + monthlyPayment;
+});
+</script>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="Convert Binary and Deciaml">
+  <meta name="viewport" content="width=device-size, initial-scale=1.0">
+  <title>Convert Binary and Decial</title>
+</head>
+<body>
+  <h1>Binary Converter</h1>
+  <form>
+    <input type="number" id="dec">Decimal</input>
+    <input type="number" id="bin">Binary</input>
+    <input type="radio" name="direction" value="d2b" checked>Convert Decimal to Binary</input>
+    <input type="radio" name="direction" value="b2d">Convert Binary to Decimal</input>
+    <input type="submit" id="submit"></input>
+  </form>
+</body>
+<script>
+
+function b2d(bin){
+  if (bin.search(/[2-9]/g) == -1) {
+  return bin.split("").reverse().reduce((x,y,z) => parseInt(x) + parseInt((y * Math.pow(2,z))));
+} else {
+  alert("Please enter a binary number");
+}
+}
+
+function d2b(dec){
+  let bin = [];
+  if (dec == 0) {
+    bin.push(0);
+  } else if(dec < 0 || (dec % 1) != 0) {
+    alert("Please enter positive integer")
+  } else {
+    while (dec > 0) {
+      bin.push(dec % 2);
+      dec = Math.floor(dec/2);
+    }
+  }
+  return bin.reverse().join("");
+}
+
+document.getElementById("submit").addEventListener("click", e => {
+  e.preventDefault();
+  const direction = document.querySelector("input[type=radio]:checked").value;
+  if (direction == "d2b") {
+    const input = document.getElementById("dec").value;
+    document.getElementById("bin").value = d2b(input);
+  } else if (direction == "b2d") {
+    const input = document.getElementById("bin").value;
+    document.getElementById("dec").value = b2d(input);
+  }
+})
+</script>

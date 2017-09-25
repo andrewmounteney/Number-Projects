@@ -20,16 +20,22 @@ document.getElementById("submit").addEventListener("click", e => {
   const money = [20, 10, 5, 2, 1, 0.5, 0.2, 0.1, 0.05, 0.02, 0.01];
   const cost = parseFloat(parseFloat(document.getElementById("cost").value).toFixed(2));
   const amount = parseFloat(parseFloat(document.getElementById("amount").value).toFixed(2));
-  let change = amount - cost;
+  let change = parseFloat((amount - cost).toFixed(2));
   let ans = "";
   if (cost > amount) {
     alert("Please pay enough money for your items!")
-    console.log(typeof cost,typeof amount, change, cost > amount)
   } else {
   money.forEach(x => {
     const num = Math.floor(change/x);
-    ans += num + " * £" + x + "<br>";
-    num == 0 ? null : change = change % x;
+    console.log(num, change);
+    if (num > 0) {
+      if (x < 1) {
+        ans += num + " * " + (x*100) + "p <br>";
+      } else {
+        ans += num + " * £" + x + "<br>";
+      }
+      change = parseFloat((change % x).toFixed(2));
+    }
   });
   document.getElementById("ans").innerHTML = ans;
 }
